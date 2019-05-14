@@ -1,1 +1,9 @@
-<h1>{{ owner }}'s blog index</h1>
+{% extends "base.html.twig" %}
+{% block body %}
+    <h1>{{ owner }}'s blog index</h1>
+    <a href="{{ path('app_index') }}">Retour à l'accueil</a>
+    <br>
+    <a href="{{ path('blog_list', {'page':1}) }}">Afficher list</a>
+    <br>
+    <a href="{{ path('blog_show') }}">Afficher show</a>
+{% endblock %}

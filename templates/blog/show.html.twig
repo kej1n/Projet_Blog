@@ -1,1 +1,9 @@
-<h1>{{ slug }}.</h1>
+{% extends "base.html.twig" %}
+{% block body %}
+    <h1>{{ slug }}.</h1>
+    <a href="{{ path('app_index') }}">Retour à l'accueil</a>
+    <br>
+    <a href="{{ path('blog_index') }}">Afficher blog</a>
+    <br>
+    <a href="{{ path('blog_list', {'page':1}) }}">Afficher list</a>
+{% endblock %}
