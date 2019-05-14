@@ -24,6 +24,7 @@ class BlogController extends AbstractController
         ]);
     }
 
+
    /**
      * @Route("/blog/list/{page}",
      *     requirements={"page"="\d+"},
