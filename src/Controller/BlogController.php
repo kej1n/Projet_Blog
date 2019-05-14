@@ -23,4 +23,39 @@ class BlogController extends AbstractController
             'owner' => 'Thomas',
         ]);
     }
+
+   /**
+     * @Route("/blog/list/{page}",
+     *     requirements={"page"="\d+"},
+     *     defaults={"page"=1},
+     *     name="blog_list"
+     * )
+     */
+
+    public function list($page)
+    {
+        return $this->render('blog/list.html.twig', ['page' => $page]);
+    }
+
+    public function new()
+    {
+        // traitement d'un formulaire par exemple
+
+        // redirection vers la page 'blog_list', correspondant à l'url /blog/list/5
+        return $this->redirectToRoute('blog_list', ['page' => 5]);
+    }
+
+   /**
+     * @Route("/blog/show/{slug}",
+     *     requirements={"slug"="([a-z]|[0-9]|-)*"},
+     *     name="blog_show"
+     * )
+     */
+
+     public function show($slug = 'Article Sans Titre')
+     { 
+        $slug= ucwords (str_replace('-', ' ', $slug));
+        return $this->render('blog/show.html.twig', ['slug' => $slug]);
+     }
+
 }
