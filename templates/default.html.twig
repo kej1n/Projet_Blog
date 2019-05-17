@@ -1,9 +1,11 @@
 {% extends "base.html.twig" %}
 {% block body %}
     <h1>Bienvenue sur mon blog</h1>
-    <a href="{{ path('blog_index') }}">Afficher blog</a>
+    <a href="{{ path('category_show', {'categoryName': 'javascript'}) }}">Voir les categories</a>
     <br>
-    <a href="{{ path('blog_list', {'page':1}) }}">Afficher list</a>
+    <a href="{{ path('blog_index') }}">Afficher les Articles</a>
     <br>
-    <a href="{{ path('blog_show') }}">Afficher show</a>
+    <a href="{{ path('blog_list', {'page':1}) }}">Afficher les listes</a>
+    <br>
+    <a href="{{ path('blog_show', { 'slug': 'javascript-vs-php' }) }}">Afficher un slug</a>
 {% endblock %}

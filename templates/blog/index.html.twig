@@ -1,9 +1,23 @@
 {% extends "base.html.twig" %}
+
+{% block title %}All articles{% endblock %}
+
 {% block body %}
-    <h1>{{ owner }}'s blog index</h1>
+    <h1>All articles from article's table : </h1>
+    {% for article in articles %}
+        <div>
+            <h2>{{ loop.index }} / {{ article.title }} - Category : {{ article.category.name }}</h2>
+            <p>{{ article.content }}</p>
+        </div>
+    {% else %}
+        Aucun article trouvé.
+    {% endfor %}
+    <br>
     <a href="{{ path('app_index') }}">Retour à l'accueil</a>
     <br>
-    <a href="{{ path('blog_list', {'page':1}) }}">Afficher list</a>
+    <a href="{{ path('category_show', {'categoryName': 'javascript'}) }}">Voir les categories</a>
     <br>
-    <a href="{{ path('blog_show') }}">Afficher show</a>
+    <a href="{{ path('blog_list', {'page':1}) }}">Afficher les listes</a>
+    <br>
+    <a href="{{ path('blog_show', { 'slug': 'javascript-vs-php' }) }}">Afficher un slug</a>
 {% endblock %}
