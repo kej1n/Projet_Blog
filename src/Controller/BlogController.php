@@ -4,32 +4,50 @@ namespace App\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Form\ArticleSearchType;
+use App\Form\CategoryType;
 
 class BlogController extends AbstractController
 {
     /**
      * @Route("/blog", name="blog_index")
     */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $articles = $this->getDoctrine()
-        ->getRepository(Article::class)
-        ->findAll();
+        $form = $this->createForm(ArticleSearchType::class);
+        $form->handleRequest($request);
+     
+        if ($form->isSubmitted()) {
+           $data = $form->getData();
+           // $data contient les données du $_POST
+           // Faire une recherche dans la BDD avec les infos de $data...
+         
+           $articles = $this->getDoctrine()
+           ->getRepository(Article::class)
+           ->findBy(['title' => $data]);
+        } else {
+            $articles = $this->getDoctrine()
+            ->getRepository(Article::class)
+            ->findAll();
 
-        if (!$articles) {
-            throw $this->createNotFoundException(
-            'No article found in article\'s table.'
-            );
+            if (!$articles) {
+                throw $this->createNotFoundException(
+                'No article found in article\'s table.'
+                );
+            }
         }
 
         return $this->render(
-            'blog/index.html.twig',
-            ['articles' => $articles]
-        );
+            'blog/index.html.twig', [
+                'articles' => $articles,
+                'form' => $form->createView(),
+             ]
+         );
     }
 
    /**
